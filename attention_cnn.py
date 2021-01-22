@@ -79,7 +79,6 @@ class AttentionCNN(nn.Module):
         reshaped_filters = x1.view(-1, 40, 16, 16)
 
         output = self.fc_layers(x1)
-
         return reshaped_filters, x, output
 
 

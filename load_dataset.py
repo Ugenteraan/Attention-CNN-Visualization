@@ -30,6 +30,7 @@ class LoadDataset(Dataset):
         self.image_path_label = self.read_folder()
 
 
+
     def get_classnames(self):
         '''Returns the name of the classes in the dataset.
         '''
@@ -49,7 +50,7 @@ class LoadDataset(Dataset):
 
         for x in glob.glob(folder_path + "**", recursive=True):
 
-            if not x.endswith('jpg') or not x.endswith('png'):
+            if not x.endswith('jpg'):
                 continue
 
             class_idx = self.classes.index(x.split('/')[-2])
@@ -76,7 +77,7 @@ class LoadDataset(Dataset):
             image = cv2.imread(image, 0)
         else:
             image = cv2.imread(image)
-            image = cv2.cvtColor(image, cv2.COLOR_BG2RGB)
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
         image = cv2.resize(image, (self.image_size, self.image_size))
 
