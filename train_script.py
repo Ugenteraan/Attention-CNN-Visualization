@@ -65,6 +65,8 @@ for epoch_idx in range(args.epoch):
 
     model.eval()
 
+    epoch_loss = []
+    epoch_accuracy = []
     i = 0
     for i, sample in tqdm(enumerate(test_generator)):
 
