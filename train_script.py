@@ -1,9 +1,8 @@
 '''Script to train the Attention-CNN model.
 '''
 
-from numpy.lib.type_check import imag
-from attention_cnn import AttentionCNN
-from load_dataset import LoadDataset
+
+
 from tqdm import tqdm
 import torch
 from torch.utils.data import DataLoader
@@ -12,6 +11,7 @@ from torchsummary import summary
 from torchvision import transforms
 
 from runtime_args import args
+from attention_cnn import AttentionCNN
 from load_dataset import LoadDataset
 
 device = torch.device("cuda:0" if torch.cuda.is_available() and args.device == 'gpu' else 'cpu')

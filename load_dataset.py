@@ -88,3 +88,59 @@ class LoadDataset(Dataset):
             'image': image,
             'label': label
         }
+
+
+class LoadInputImages(Dataset):
+    '''Loads the dataset for visualization.
+    '''
+
+    def __init__(self, input_folder, image_size, image_depth, transform=None):
+        '''Param init.
+        '''
+        self.input_folder = input_folder.rstrip('/') + '/'
+        self.image_size = image_size
+        self.image_depth = image_depth
+        self.transform = transform
+
+        self.image_paths = self.read_folder()
+
+
+    def read_folder(self):
+        '''Reads all the image paths in the given folder.
+        '''
+        image_paths = []
+        for x in glob.glob(self.input_folder):
+
+            if not x.endswith('jpg'):
+                continue
+            image_paths.append(x)
+
+        return image_paths
+
+
+    def __len__(self):
+        '''Returns the total number of images in the folder.
+        '''
+        return len(self.image_paths)
+
+    def __getitem__(self, idx):
+        '''Returns a single image array.
+        '''
+
+        if torch.is_tensor(idx):
+            idx = idx.tolist()
+
+        image = self.image_path_label[idx]
+
+        if self.image_depth == 1:
+            image = cv2.imread(image, 0)
+        else:
+            image = cv2.imread(image)
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+        image = cv2.resize(image, (self.image_size, self.image_size))
+
+        if self.transform:
+            image = self.transform(image)
+
+        return image

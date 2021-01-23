@@ -52,7 +52,7 @@ class AttentionCNN(nn.Module):
             nn.ReLU(inplace=True)
         )
 
-        self.feature_vector_size = (self.image_size//(2**3))**2 * 40
+        self.feature_vector_size = (self.image_size//(2**3))**2 * 128
 
         self.attention = nn.Sequential(
             nn.Linear(self.feature_vector_size, self.feature_vector_size),
@@ -60,10 +60,10 @@ class AttentionCNN(nn.Module):
         )
         self.weight = nn.Parameter(torch.randn(1, self.feature_vector_size)*0.05)
 
-        self.fc_layers = nn.Sequential(nn.Linear(self.feature_vector_size, 128),
+        self.fc_layers = nn.Sequential(nn.Linear(self.feature_vector_size, 256),
                                                  nn.ReLU(inplace=True),
                                                  nn.Dropout(p=self.drop_prob),
-                                                 nn.Linear(128, self.num_classes))
+                                                 nn.Linear(256, self.num_classes))
 
 
     def forward(self, x):
@@ -76,7 +76,7 @@ class AttentionCNN(nn.Module):
         attention_out = nn.Sigmoid()(self.weight * self.attention(x1))
         x1 = attention_out*x1
 
-        reshaped_filters = x1.view(-1, 40, 16, 16)
+        reshaped_filters = x1.view(-1, 128, self.image_size//(2**3), self.image_size//(2**3))
 
         output = self.fc_layers(x1)
         return reshaped_filters, x, output
