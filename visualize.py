@@ -107,11 +107,3 @@ for i, image in tqdm(enumerate(data_generator)):
     fig.suptitle(f"Network's prediction : {predicted_class.capitalize()}", fontsize=20)
 
     plt.savefig(f'{output_folder}/{i}.png')
-
-
-
-
-
-
-
-
