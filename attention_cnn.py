@@ -48,11 +48,11 @@ class AttentionCNN(nn.Module):
             nn.Conv2d(in_channels=128, out_channels=128, kernel_size=3, stride=1, padding=1),
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=2, stride=2),
-            nn.Conv2d(in_channels=128, out_channels=128, kernel_size=3, stride=1, padding=1),
+            nn.Conv2d(in_channels=128, out_channels=70, kernel_size=3, stride=1, padding=1),
             nn.ReLU(inplace=True)
         )
 
-        self.feature_vector_size = (self.image_size//(2**3))**2 * 128
+        self.feature_vector_size = (self.image_size//(2**3))**2 * 70
 
         self.attention = nn.Sequential(
             nn.Linear(self.feature_vector_size, self.feature_vector_size),
@@ -76,7 +76,7 @@ class AttentionCNN(nn.Module):
         attention_out = nn.Sigmoid()(self.weight * self.attention(x1))
         x1 = attention_out*x1
 
-        reshaped_filters = x1.view(-1, 128, self.image_size//(2**3), self.image_size//(2**3))
+        reshaped_filters = x1.view(-1, 70, self.image_size//(2**3), self.image_size//(2**3))
 
         output = self.fc_layers(x1)
         return reshaped_filters, x, output
