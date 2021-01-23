@@ -40,3 +40,10 @@ To visualize the final filters before and after applying the attention mechanism
 
 ## Conclusion
 As can be seen the in previous section's examples, the attention mechanism focuses only on the certain part of the feature maps that helps with achieving a lower loss. Keep in mind that this is a very simple attention mechanism and this was implemented purely for learning purposes. Refer to this [paper](https://arxiv.org/abs/1804.02391) to know more about the attention mechanism in detail.
+
+
+License
+----
+
+MIT
+
