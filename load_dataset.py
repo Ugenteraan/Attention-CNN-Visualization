@@ -105,11 +105,12 @@ class LoadInputImages(Dataset):
         self.image_paths = self.read_folder()
 
 
+
     def read_folder(self):
         '''Reads all the image paths in the given folder.
         '''
         image_paths = []
-        for x in glob.glob(self.input_folder):
+        for x in glob.glob(self.input_folder + '**'):
 
             if not x.endswith('jpg'):
                 continue
@@ -130,7 +131,7 @@ class LoadInputImages(Dataset):
         if torch.is_tensor(idx):
             idx = idx.tolist()
 
-        image = self.image_path_label[idx]
+        image = self.image_paths[idx]
 
         if self.image_depth == 1:
             image = cv2.imread(image, 0)
