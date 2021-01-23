@@ -1,5 +1,4 @@
-mage_dataset/**
-input_images/**
+
 *.pth
 # Byte-compiled / optimized / DLL files
 __pycache__/
