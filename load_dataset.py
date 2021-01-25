@@ -46,7 +46,7 @@ class LoadDataset(Dataset):
         if self.train:
             folder_path = f"{self.dataset_folder_path.rstrip('/')}/train/"
         else:
-            folder_path = f"{self.dataset_folder_path.rstrip('/')}/train/"
+            folder_path = f"{self.dataset_folder_path.rstrip('/')}/test/"
 
         for x in glob.glob(folder_path + "**", recursive=True):
 
